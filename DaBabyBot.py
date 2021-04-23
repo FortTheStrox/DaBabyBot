@@ -1,11 +1,13 @@
 # DaBabyBot.py
 '''
+@re for regex patterns
 @os for operating system interaction
 @random for random selection functions
 @discord for basic discord interaction
 @dotenv for env functions
 @urllib.parse, @urllib.request, @re
 '''
+import re
 import os
 import random
 import discord
@@ -22,19 +24,22 @@ client = commands.Bot(command_prefix = "$")
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
     
+patterns = "dababy"
+
 @client.event
 async def on_message(message):
     # we do not want the bot to reply to itself
     if message.author == client.user:
         return
 
+    if re.search(patterns, message.content):
+        msg = f'LES GOOOOOO {message.author.mention}'
+        await message.channel.send(msg)
+
     if message.content.startswith('!hello'):
         msg = f'Hello {message.author.mention}'
         await message.channel.send(msg)
 
-    if message.content.startswith('!dababy'):
-        msg = f'LES GOOOOOO {message.author.mention}'
-        await message.channel.send(msg)
     # to process commands, if we don't have this the bot is stuck in this listen loop
     print(f'A user sent a message')
     await client.process_commands(message)
