@@ -33,8 +33,8 @@ async def on_message(message):
         await message.channel.send(msg)
 
     if message.content.startswith('!dababy'):
-            msg = f'LES GOOOOOO {message.author.mention}'
-            await message.channel.send(msg)
+        msg = f'LES GOOOOOO {message.author.mention}'
+        await message.channel.send(msg)
     # to process commands, if we don't have this the bot is stuck in this listen loop
     print(f'A user sent a message')
     await client.process_commands(message)
