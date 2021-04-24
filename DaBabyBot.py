@@ -35,6 +35,7 @@ async def on_message(message):
     if re.search(patterns, message.content):
         msg = f'LES GOOOOOO {message.author.mention}'
         await message.channel.send(msg)
+        
 
     if message.content.startswith('!hello'):
         msg = f'Hello {message.author.mention}'
@@ -47,7 +48,7 @@ async def on_message(message):
 # need this for voice package: pip install -U discord.py[voice]
 # Trying to get the bot to join vc
 @client.command(pass_context = True)
-async def join(ctx):
+async def dababy(ctx):
     # if the user is in a vc it'll run the command but if they're not, then it'll send a message
     if (ctx.author.voice):
         channel = ctx.message.author.voice.channel
