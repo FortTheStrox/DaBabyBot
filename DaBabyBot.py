@@ -23,8 +23,27 @@ client = commands.Bot(command_prefix = "$")
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
-    
-patterns = "dababy"
+
+'''
+Pattern[0]
+Pattern for different variations of the dababy word usage.
+Use case:
+dababy                          Matches: dababy
+dababies                        Matches: dababies
+s;adklfj; dababydasf;j          Matches: dababydasf
+dsafafsdababababadbyadsfdsaf    Matches: dababababadbyadsf
+asdfdsafdaboobyadsfasdf         Matches: daboobyadsf
+
+Pattern[1]
+For being a car I guess
+'''
+patterns = ["[dD][aA][bB]\w+[bB]\w{0,5}", "car"]
+
+'''
+Hands up emoji
+'''
+
+emoji = ["<:handsup:519312367570386962>"]
 
 @client.event
 async def on_message(message):
@@ -32,8 +51,12 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if re.search(patterns, message.content):
+    if re.search(patterns[0], message.content):
         msg = f'LES GOOOOOO {message.author.mention}'
+        await message.channel.send(msg)
+
+    if re.search(patterns[1], message.content):
+        msg = f'{emoji[0] * 4}I will turn a {message.author.mention} into a convertible{emoji[0] * 4}'
         await message.channel.send(msg)
 
     if message.content.startswith('!hello'):
