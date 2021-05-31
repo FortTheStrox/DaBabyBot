@@ -77,7 +77,7 @@ async def idolVoice(ctx):
     if voice_channel != None:
         channel = voice_channel.name
         vc = await voice_channel.connect()
-        vc.play(discord.FFmpegPCMAudio(source=f"audio/dababy{random.randint(1,5)}.m4a", executable="A:/Downloads/ffmpeg-N-102631-gbaf5cc5b7a-win64-gpl/bin/ffmpeg.exe"))
+        vc.play(discord.FFmpegPCMAudio(source=f"audio/dababy{random.randint(1,6)}.m4a", executable="A:/Downloads/ffmpeg-N-102631-gbaf5cc5b7a-win64-gpl/bin/ffmpeg.exe"))
         # Sleep while audio is playing.
         while vc.is_playing():
             time.sleep(.1)
