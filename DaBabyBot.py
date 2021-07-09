@@ -72,10 +72,11 @@ async def on_message(message):
 
     # uses a predetermined list of words to give specific replies
     for word in wordlist:
-        if word in message.content == 'sus':
-            await message.channel.send('what a sussy baka')
-        elif word in message.content == 'gork':
-            await message.channel.send('LMAOO GORK IT UP')
+        if word in message.content:
+            if 'sus' in message.content:
+                await message.channel.send('what a sussy baka')
+            else:
+                await message.channel.send(f'what a fuckiiiiin {word}')
 
 
 @client.command(pass_context=True)
