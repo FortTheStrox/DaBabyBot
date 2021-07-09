@@ -18,7 +18,8 @@ import random
 # load onv and set token from .env file within same directory
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
-client = commands.Bot(command_prefix = "$")
+client = commands.Bot(command_prefix="$")
+
 
 @client.event
 async def on_ready():
@@ -44,6 +45,8 @@ Hands up emoji
 '''
 
 emoji = ["<:handsup:519312367570386962>"]
+wordlist = ['gork', 'sus']
+
 
 @client.event
 async def on_message(message):
@@ -54,7 +57,6 @@ async def on_message(message):
     if re.search(patterns[0], message.content):
         msg = f'LES GOOOOOO {message.author.mention}'
         await message.channel.send(msg)
-        
 
     if re.search(patterns[1], message.content):
         msg = f'{emoji[0] * 4}I will turn a {message.author.mention} into a convertible{emoji[0] * 4}'
@@ -68,16 +70,32 @@ async def on_message(message):
     print(f'A user sent a message')
     await client.process_commands(message)
 
-@client.command(pass_context = True)
+    # uses a predetermined list of words to give specific replies
+    for word in wordlist:
+        if word in message.content:
+            if 'sus' in message.content:
+                await message.channel.send('what a sussy baka')
+            else:
+                await message.channel.send(f'what a fuckiiiiin {word}')
+
+
+@client.command(pass_context=True)
+# prunes 10 messages + the command line used for this command
+async def clear10(ctx, amount=11):
+    await ctx.channel.purge(limit=amount)
+
+
+@client.command(pass_context=True)
 async def idolVoice(ctx):
-    
+
     # Gets voice channel of message author
     voice_channel = ctx.author.voice.channel
     channel = None
     if voice_channel != None:
         channel = voice_channel.name
         vc = await voice_channel.connect()
-        vc.play(discord.FFmpegPCMAudio(source=f"audio/dababy{random.randint(1,6)}.m4a", executable="A:/Downloads/ffmpeg-N-102631-gbaf5cc5b7a-win64-gpl/bin/ffmpeg.exe"))
+        vc.play(discord.FFmpegPCMAudio(
+            source=f"audio/dababy{random.randint(1,6)}.m4a", executable="E:/ffmpeg-N-102631-gbaf5cc5b7a-win64-gpl/bin/ffmpeg.exe"))
         # Sleep while audio is playing.
         while vc.is_playing():
             time.sleep(.1)
@@ -88,7 +106,9 @@ async def idolVoice(ctx):
     await ctx.message.delete()
 
 # Getting the bot to leave vc
-@client.command(pass_context = True)
+
+
+@client.command(pass_context=True)
 async def leave(ctx):
     voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
     if not voice is None:
